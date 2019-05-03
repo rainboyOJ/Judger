@@ -193,7 +193,7 @@ namespace demo {
         char buf[255];
         FILE *_result_f;
         std::string result;
-        printf("%s \n\n",_args.c_str());
+        //printf("%s \n\n",_args.c_str());
         if(( _result_f = popen(_args.c_str(),"r"))==NULL)
             isolate->ThrowException(Exception::Error(String::NewFromUtf8(isolate,"run /usr/lib/judger/libjudger.so failed!")));
         while(fgets(buf,sizeof(buf),_result_f)){
