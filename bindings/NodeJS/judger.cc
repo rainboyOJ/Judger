@@ -96,6 +96,7 @@ namespace demo {
      *      error_path
      *      args:[]
      *      env:[]
+     *      cwd: 目录
      * }
      * 返回值
      * {
@@ -114,13 +115,25 @@ namespace demo {
         Isolate* isolate = args.GetIsolate();
         Local<Context> context= isolate->GetCurrentContext();
 
-        std::string _args = "/usr/lib/judger/libjudger.so";
+        
 
         if( !args[0]->IsObject()){
             isolate->ThrowException(Exception::Error(String::NewFromUtf8(isolate,"typeof argument must be Object!")));
         }
 
+
         Local<Value> argument = args[0];
+        std::string _args;
+        std::string cwd;
+        if( ToCStr(isolate,argument,(char *)"cwd",cwd)){
+            // --cwd=
+            if( cwd.length() >7 ){
+                _args+="cd ";
+                _args+=std::string(cwd.begin()+7,cwd.end());
+                _args+=";";
+            }
+        }
+        _args += "/usr/lib/judger/libjudger.so";
 
         std::string int_vars[] = { "max_cpu_time","max_real_time","max_memory","memory_limit_check_only","max_stack","max_process_number","max_output_size","uid","gid"};
         std::string str_vars[] = { "input_path","output_path","error_path","exe_path","log_path","seccomp_rule_name"};
@@ -180,6 +193,7 @@ namespace demo {
         char buf[255];
         FILE *_result_f;
         std::string result;
+        printf("%s \n\n",_args.c_str());
         if(( _result_f = popen(_args.c_str(),"r"))==NULL)
             isolate->ThrowException(Exception::Error(String::NewFromUtf8(isolate,"run /usr/lib/judger/libjudger.so failed!")));
         while(fgets(buf,sizeof(buf),_result_f)){
