@@ -8,8 +8,20 @@ npm run build
 npm run test
 ```
 
-## 已知bug
+## demo
 
-#### bug_1
+```
+cd demo/node
+```
 
-`freopen("data.out","w",stdout)`,不能产生"data.out",这个应该是judger代码的锅,:cry:
+### 普通测试
+
+```
+sudo node demo.js
+```
+
+### 测试freopen
+
+```
+sudo node demo_node_freopen.js
+```
