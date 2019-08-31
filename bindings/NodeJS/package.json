@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "judger for online system",
   "main": "./build/Release/judger.node",
+  "typings":"index.d.ts",
   "scripts": {
     "build": "node-gyp rebuild",
     "test": "sudo ./node_modules/.bin/mocha -t 5000 ../../tests/Nodejs_and_core"
