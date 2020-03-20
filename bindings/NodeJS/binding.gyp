@@ -1,9 +1,9 @@
 {
     "targets": [
     {
-        "target_name": "judger",
+        "target_name": "popen",
         'cflags_cc!': [ '-std=c++11','-O2' ],
-        "sources": [ "judger.cc"],
+        "sources": [ "popen.cc"],
     }
     ]
 }
