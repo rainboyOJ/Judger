@@ -1,20 +1,20 @@
 const popen = require("./build/Release/popen.node")
 exports.run = function({
-  max_cpu_time,
-  max_real_time,
-  max_memory,
-  memory_limit_check_only,
-  max_stack,
-  max_process_number,
-  max_output_size,
+  max_cpu_time=10000, //10s
+  max_real_time=30000,//30s
+  max_memory=134217728, //128mb
+  memory_limit_check_only=0,
+  max_stack=134217728, //128mb
+  max_process_number=4,
+  max_output_size=134217728,
   exe_path,
-  input_path,
-  output_path,
-  error_path,
-  args,
-  env,
-  log_path,
-  seccomp_rule_name,
+  input_path="/dev/stdin",
+  output_path="/dev/stdout",
+  error_path="/dev/stderr",
+  args=[],
+  env=[],
+  log_path="judger.log",
+  seccomp_rule_name="general",
   uid=0,
   gid=0,
   cwd="",
@@ -60,8 +60,16 @@ exports.run = function({
     //popen_args.push()
   }
   let res = popen.popen(popen_args.join(" "))
-  console.log(res)
-
+  let res_reg = /{(.|\n)+}/
+  if( res_reg.test(res)){
+    let other_res = res.replace(res_reg,"")
+    if( other_res && other_res.length > 0)
+      console.log(other_res)
+    return res.match(res_reg)[0]
+  }
+  else 
+      console.log(res)
+  return undefined
 }
 
 

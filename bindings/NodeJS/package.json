@@ -1,8 +1,8 @@
 {
   "name": "judger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "judger for online system",
-  "main": "./build/Release/judger.node",
+  "main": "index.js",
   "typings":"index.d.ts",
   "scripts": {
     "build": "node-gyp rebuild",

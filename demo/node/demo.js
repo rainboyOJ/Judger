@@ -15,7 +15,7 @@ let result = judge.run({
     exe_path:`${__dirname}/main`,
     input_path:"../1.in",
     output_path:"1.out",
-    error_path:"1.out",
+    error_path:"1.error",
     args:[],
     // can be empty list
     env:[],
