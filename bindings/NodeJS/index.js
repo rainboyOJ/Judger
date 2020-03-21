@@ -14,16 +14,19 @@ exports.run = function({
   args=[],
   env=[],
   log_path="judger.log",
-  seccomp_rule_name="general",
+  seccomp_rule_name,
   uid=0,
   gid=0,
   cwd="",
   },
   judger_bin_path="/usr/lib/judger/libjudger.so"
 ){
-  let popen_args = []
 
-  popen_args.push(judger_bin_path)
+  if(!( args instanceof Array)) throw('args must be a list')
+  if(!( env instanceof Array) )  throw('env must be a list')
+
+  let popen_args = [judger_bin_path]
+
   let int_vars = {
     max_cpu_time,
     max_real_time,
@@ -42,7 +45,8 @@ exports.run = function({
   }
 
   for( let key in  int_vars){
-    popen_args.push(`--${key}=${int_vars[key]}`)
+    if( int_vars[key])
+      popen_args.push(`--${key}=${int_vars[key]}`)
   }
 
   let array_vars = { args,env }
@@ -65,7 +69,7 @@ exports.run = function({
     let other_res = res.replace(res_reg,"")
     if( other_res && other_res.length > 0)
       console.log(other_res)
-    return res.match(res_reg)[0]
+    return JSON.parse( res.match(res_reg)[0] )
   }
   else 
       console.log(res)

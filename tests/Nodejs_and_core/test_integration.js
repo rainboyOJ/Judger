@@ -214,7 +214,7 @@ describe('#常用测试',function(){
         config["max_output_size"] = 1000 * 10
         let result= judger.run(config)
         assert.strictEqual(result["result"], judger.RESULT_RUNTIME_ERROR)
-        assert.ok(base.read_input("/tmp/judge/fsize_test").length <= 1000*10)
+        assert.ok(base.read_input("/tmp/fsize_test").length <= 1000*10)
   })
   it('test stack size',()=>{
         let config = base.baseconfig()
@@ -227,7 +227,7 @@ describe('#常用测试',function(){
         assert.strictEqual(result["result"], judger.RESULT_RUNTIME_ERROR)
 
         config["max_stack"] = 128 * 1024 * 1024
-        result= judger.run(config).result
+        result= judger.run(config)
         assert.strictEqual(result["result"], judger.RESULT_SUCCESS)
         assert.strictEqual("big stack", base.read_input(config["output_path"]))
 
