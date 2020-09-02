@@ -63,7 +63,9 @@ exports.run = function({
     pass_args = `cd ${cwd};`+pass_args
     //popen_args.push()
   }
-  let res = popen.popen(popen_args.join(" "))
+  //let res = popen.popen(popen_args.join(" "))
+  let res = popen.popen(pass_args)
+  //console.log(pass_args)
   let res_reg = /{(.|\n)+}/
   if( res_reg.test(res)){
     let other_res = res.replace(res_reg,"")

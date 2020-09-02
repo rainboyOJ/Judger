@@ -14,3 +14,4 @@ node_modules/
 *.error
 freopen
 main
+out
